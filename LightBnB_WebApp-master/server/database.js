@@ -184,10 +184,10 @@ const getAllProperties = function (options, limit = 10, owner_id) {
   `;
 
   return pool.query(queryString, queryParams).then((result) => {
-    Promise.resolve(result.rows);
+    return Promise.resolve(result.rows);
   })
   .catch((err) => {
-    Promise.reject(err.message);
+    return Promise.reject(err.message);
   });
 };
 exports.getAllProperties = getAllProperties;
