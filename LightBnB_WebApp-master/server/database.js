@@ -135,8 +135,9 @@ exports.getAllReservations = getAllReservations;
 //       Promise.reject(err.message);
 //     });
 // };
-const getAllProperties = function (options, limit = 10) {
+const getAllProperties = function (options, limit = 10, owner_id) {
   // 1
+  console.log(owner_id)
   const queryParams = [];
   
   let queryString = `
@@ -178,6 +179,16 @@ const getAllProperties = function (options, limit = 10) {
     else{
       queryParams.push(options.minimum_rating)
       queryString += " AND rating >= $" + queryParams.length
+    }
+  }
+  if (owner_id !== undefined && owner_id !== null) {
+    if(queryParams.length === 0){
+      queryParams.push(owner_id)
+      queryString += " WHERE owner_id = $" + queryParams.length
+    }
+    else{
+      queryParams.push(options.minimum_rating)
+      queryString += " AND owner_id = $" + queryParams.length
     }
   }
 
